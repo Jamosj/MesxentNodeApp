@@ -2,8 +2,5 @@ package com.mesxent.node;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    @Override protected void onCreate(Bundle s) { super.onCreate(s); }
 }
