@@ -1,0 +1,25 @@
+name: Build Mesxent APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build APK
+        run: |
+          if [ -f "gradlew" ]; then
+            chmod +x gradlew
+            ./gradlew assembleDebug
+          else
+            echo "No Gradle wrapper found, but we are checking for APKs anyway"
+          fi
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: MesxentNode-Alpha
+          path: "**/*.apk"
