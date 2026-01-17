@@ -1,0 +1,24 @@
+name: Build Mesxent APK
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build APK
+        run: |
+          if [ ! -f gradlew ]; then
+            gradle init --type java-application
+          fi
+          chmod +x gradlew
+          ./gradlew assembleDebug
+      - name: Upload
+        uses: actions/upload-artifact@v3
+        with:
+          name: MesxentNode-Alpha
+          path: app/build/outputs/apk/debug/app-debug.apk
