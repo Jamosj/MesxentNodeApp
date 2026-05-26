@@ -47,7 +47,7 @@ document.getElementById('bookingForm').addEventListener('submit', async (e) => {
             headers: {
                 'Content-Type': 'application/json',
                 'apikey': 'YOUR_SUPABASE_ANON_KEY', // This can be extracted from your settings tab
-                'Authorization': 'Bearer YOUR_SUPABASE_ANON_KEY',
+                'Authorization': 'Bearer sb_publishable_eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9',
                 'Prefer': 'return=minimal'
             },
             body: JSON.stringify([payload])
