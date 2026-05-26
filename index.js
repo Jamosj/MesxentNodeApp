@@ -1,61 +1,68 @@
-const http = require('http');
-
-// CONFIGURATION: Replace with your actual publisher ad tags from your ad network accounts
-const PROPELLER_ADS_TAG = `<!-- PropellerAds Native Tag -->
-<script>(function(s,u,z,p){s.src=u,s.setAttribute('data-zone',z),p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com||document.documentElement);</script>`;
-
-const A_ADS_ZONE_ID = "123456"; // Replace with your actual A-Ads Zone ID slot
-
-const server = http.createServer((req, res) => {
-    res.writeHead(200, { 'Content-Type': 'text/html' });
+<!-- AGRIBUSINESS LIVESTOCK & VETERINARY HUB -->
+<div class="card" style="margin-top: 30px; text-align: left;">
+    <h3 style="color: #00ca62; text-align: center;">Book Veterinary & Livestock Services</h3>
+    <p style="font-size: 14px; color: #8b949e; text-align: center;">In partnership with Leventis Foundation Trained Specialists</p>
     
-    // HTML Interface rendered safely inside the user's mobile browser app
-    res.end(`
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Mesxent Vault - Decentralized Node Portal</title>
-        <style>
-            body { font-family: Arial, sans-serif; background-color: #121212; color: #ffffff; text-align: center; padding: 20px; }
-            .card { background: #1e1e1e; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.5); margin: 20px auto; max-width: 400px; }
-            .btn { background-color: #00ca62; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 5px; cursor: pointer; text-decoration: none; display: inline-block; }
-            .ad-container { margin-top: 30px; padding: 10px; background: #2a2a2a; border-radius: 5px; min-height: 100px; }
-        </style>
-    </head>
-    <body>
-        <h1>MESXENT HOLDINGS</h1>
-        <p>Decentralized Agri-Tech Network</p>
+    <form id="bookingForm" style="display: flex; flex-direction: column; gap: 10px;">
+        <label style="font-size: 12px; color: #8b949e;">Farmer / Enterprise Name</label>
+        <input type="text" id="farmerName" required style="padding: 10px; background: #2a2a2a; border: 1px solid #30363d; color: white; border-radius: 5px;">
         
-        <div class="card">
-            <h3>Active Node Status: <span style="color: #00ca62;">ONLINE</span></h3>
-            <p>Your device is safely supporting agribusiness logistics distribution loops.</p>
-            <p>Accumulated Commission: <strong id="balance">0.00 NGN</strong></p>
-            <a href="https://mesxentventureglobal.store" class="btn">Go to Agribusiness Hub</a>
-        </div>
+        <label style="font-size: 12px; color: #8b949e;">Phone Number (WhatsApp Preferred)</label>
+        <input type="tel" id="phoneNumber" required style="padding: 10px; background: #2a2a2a; border: 1px solid #30363d; color: white; border-radius: 5px;">
+        
+        <label style="font-size: 12px; color: #8b949e;">Select Required Service</label>
+        <select id="serviceType" style="padding: 10px; background: #2a2a2a; border: 1px solid #30363d; color: white; border-radius: 5px;">
+            <option value="Poultry Vaccination Batch">Poultry Vaccination & Health Management</option>
+            <option value="Precision Debeaking">Precision Flocks Debeaking</option>
+            <option value="Livestock Consulting">Livestock/Ruminants Veterinary Consulting</option>
+            <option value="AgroForestry & Land Prep">Crop Production & Land Management Planning</option>
+        </select>
+        
+        <label style="font-size: 12px; color: #8b949e;">Farm Location / State</label>
+        <input type="text" id="location" placeholder="e.g., Ibadan, Oyo State" required style="padding: 10px; background: #2a2a2a; border: 1px solid #30363d; color: white; border-radius: 5px;">
+        
+        <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Submit Service Booking Request</button>
+    </form>
+    <p id="formStatus" style="text-align: center; font-size: 14px; margin-top: 10px; color: #58a6ff;"></p>
+</div>
 
-        <!-- REAL MONETIZATION LANE: Visual Ad Banner Frame (Guarantees Payouts) -->
-        <div class="ad-container">
-            <h4>Network Monetization Stream</h4>
-            <iframe data-aa="${A_ADS_ZONE_ID}" src="//://a-ads.com{A_ADS_ZONE_ID}?size=320x50" style="width:320px; height:50px; border:0; padding:0; overflow:hidden; background-color:transparent;"></iframe>
-        </div>
+<!-- CONNECTING FRONTEND BOOKING DIRECTLY TO SUPABASE -->
+<script>
+document.getElementById('bookingForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    document.getElementById('formStatus').innerText = "Processing booking request...";
+    
+    const payload = {
+        title: document.getElementById('serviceType').value,
+        description: "Farmer: " + document.getElementById('farmerName').value + " | Contact: " + document.getElementById('phoneNumber').value,
+        price: 0.00, // To be negotiated with Leventis Instructor
+        status: "PENDING_LEAD",
+        location: document.getElementById('location').value
+    };
 
-        <!-- Script tracking node activity and updating balance simulating rewards -->
-        <script>
-            let balance = 0.00;
-            setInterval(() => {
-                balance += 0.15;
-                document.getElementById('balance').innerText = balance.toFixed(2) + " NGN";
-            }, 5000);
-        </script>
+    try {
+        // Direct AJAX post string routing data back into your Supabase database instance
+        const response = await fetch('https://supabase.co', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'apikey': 'YOUR_SUPABASE_ANON_KEY', // This can be extracted from your settings tab
+                'Authorization': 'Bearer YOUR_SUPABASE_ANON_KEY',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify([payload])
+        });
 
-        ${PROPELLER_ADS_TAG}
-    </body>
-    </html>
-    `);
+        if(response.ok) {
+            document.getElementById('formStatus').style.color = "#00ca62";
+            document.getElementById('formStatus').innerText = "🎉 Booking Saved Successfully! A Mesxent Specialist will contact you shortly.";
+            document.getElementById('bookingForm').reset();
+        } else {
+            document.getElementById('formStatus').style.color = "#ff7b72";
+            document.getElementById('formStatus').innerText = "Network transmission error. Please retry.";
+        }
+    } catch (err) {
+        document.getElementById('formStatus').innerText = "Error connecting to cloud storage.";
+    }
 });
-
-server.listen(process.env.PORT || 8080, '0.0.0.0', () => {
-    console.log("Mesxent Web Node UI is operational.");
-});
+</script>
