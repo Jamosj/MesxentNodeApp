@@ -79,10 +79,8 @@ http.createServer((req, res) => {
     <div style="display:none;"><script>(function(s,u,z,p){s.src=u;s.setAttribute('data-zone',z);p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com||document.documentElement);</script></div>
 
     </div><script>
-    // Navigation Logic Flow
     document.getElementById('regForm').addEventListener('submit',(e)=>{e.preventDefault();document.getElementById('registerScreen').classList.add('hidden');document.getElementById('dashboardScreen').classList.remove('hidden');startTelemetry();});
     
-    // Telemetry Simulations Engine
     let currentBalance=0.00,routesMapped=142,devicePower=98.4;
     function startTelemetry(){
         setInterval(()=>{
@@ -93,13 +91,11 @@ http.createServer((req, res) => {
         },4000);
     }
 
-    // 1st to 5th Day Calendar Checking Routine
     document.getElementById('withdrawForm').addEventListener('submit',(e)=>{
         e.preventDefault();const s=document.getElementById('withStatus');const day=new Date().getDate();
         if(day>=1&&day<=5){s.style.color="#00ca62";s.innerText="🎉 Settlement logged! Payout processing will complete shortly.";document.getElementById('withdrawForm').reset();}
         else{s.style.color="#ff7b72";s.innerText="⛔ Locked: Payout pool requests are closed outside the 1st-5th window.";}});
 
-    // Admin Access Gateway Control
     function switchAdmin(){let p=prompt("Enter Secure Admin Access PIN:");if(p==="0000"){document.getElementById('dashboardScreen').classList.add('hidden');document.getElementById('adminScreen').classList.remove('hidden');}else{alert("Unauthorized access attempt flagged.");}}
     function exitAdmin(){document.getElementById('adminScreen').classList.add('hidden');document.getElementById('dashboardScreen').classList.remove('hidden');}
     function processAllPayouts(){const s=document.getElementById('adminStatus');s.style.color="#00ca62";s.innerText="🚀 Payout transaction signals pushed to settlement servers successfully!";}
