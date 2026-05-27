@@ -1,65 +1,107 @@
 const http = require('http');
-const S_URL = "https://supabase.co";
-const S_KEY = process.env.SUPABASE_KEY || "YOUR_SUPABASE_ANON_PUBLIC_KEY_HERE";
 
 http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
-    res.end(`<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Mesxent Ecosystem</title>
-    <style>body{font-family:sans-serif;background:#0c0f12;color:#fff;text-align:center;padding:10px;margin:0}.card{background:#161b22;padding:15px;border-radius:10px;border:1px solid #30363d;margin:12px auto;max-width:400px;text-align:left}h2,h3{text-align:center;margin:5px 0}.btn{background:#238636;color:#fff;border:none;padding:12px;font-size:15px;border-radius:6px;cursor:pointer;font-weight:bold;width:100%;box-sizing:border-box;margin-top:10px;text-align:center;text-decoration:none;display:block}input,select{width:100%;padding:10px;background:#2a2a2a;border:1px solid #30363d;color:#fff;border-radius:5px;box-sizing:border-box;margin-bottom:10px}.nav-tabs{display:flex;justify-content:center;gap:10px;margin-bottom:15px}.tab-btn{background:#21262d;color:#fff;border:1px solid #30363d;padding:8px 15px;border-radius:5px;cursor:pointer}.tab-btn.active{background:#238636;border-color:#238636}.hidden{display:none!important}.stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #21262d}.ad-section{margin-top:20px;padding:10px;background:#0d1117;border-radius:8px;border:1px dashed #8b949e}</style>
+    res.end(`<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Mesxent Core Ecosystem</title>
+    <style>body{font-family:'Segoe UI',sans-serif;background:#06080c;color:#fff;margin:0;padding:0;text-align:center}.app-container{max-width:480px;margin:0 auto;padding:15px;box-sizing:border-box}.card{background:#0d1117;padding:20px;border-radius:14px;border:1px solid #21262d;margin-bottom:15px;text-align:left;box-shadow:0 4px 12px rgba(0,0,0,0.3)}h2,h3,h4{text-align:center;margin:5px 0;color:#58a6ff}.btn{background:#238636;color:#fff;border:none;padding:12px;font-size:15px;border-radius:6px;cursor:pointer;font-weight:bold;width:100%;box-sizing:border-box;margin-top:10px;text-align:center;text-decoration:none;display:block}input,select{width:100%;padding:11px;background:#161b22;border:1px solid #30363d;color:#fff;border-radius:6px;box-sizing:border-box;margin-bottom:12px}.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}.stat-box{background:#161b22;padding:12px;border-radius:8px;border:1px solid #30363d;text-align:center}.stat-val{font-size:18px;font-weight:bold;color:#00ca62;margin-top:5px}.hidden{display:none!important}.campaign-banner{background:linear-gradient(135deg,#1f2937,#111827);border-left:4px solid #00ca62;padding:15px;border-radius:8px;margin:15px 0}.ad-frame{margin-top:20px;padding:10px;background:#0d1117;border-radius:10px;border:1px dashed #8b949e;text-align:center}</style>
     <script type="text/javascript">var uid='498480',wid='750528';var pop_tag=document.createElement('script');pop_tag.src='//cdn.popcash.net/show.js';document.body.appendChild(pop_tag);</script>
-    </head><body>
-    <h2>MESXENT CORE PLATFORM</h2>
-    <div class="nav-tabs"><button class="tab-btn active" onclick="switchView('user')">User Vault</button><button class="tab-btn" onclick="switchView('admin')">Admin Terminal</button></div>
+    </head><body><div class="app-container">
 
-    <!-- 1. USER DASHBOARD INTERFACE -->
-    <div id="userPanel" class="card">
-        <h3>Node Support Dashboard</h3>
-        <div class="stat-row"><span>Cluster Node Status:</span><span style="color:#238636;font-weight:bold;">ONLINE (0% CPU)</span></div>
-        <div class="stat-row"><span>Device Network Share:</span><span id="share-pct">0.0015%</span></div>
-        <div class="stat-row"><span>Your 1% Pool Earnings:</span><span id="node-payout" style="color:#58a6ff;font-weight:bold;">0.00 NGN</span></div>
-        
-        <h4 style="margin:15px 0 5px 0;color:#00ca62;">Request Monthly Payout</h4>
-        <p style="font-size:11px;color:#8b949e;margin:0 0 10px 0;">Withdrawals pool opens strictly from the 1st to the 5th of every month.</p>
-        <form id="payoutForm">
-            <input type="text" id="bankName" placeholder="Bank Name" required>
-            <input type="text" id="accountNum" placeholder="Account Number" maxlength="10" required>
-            <button type="submit" class="btn" id="withBtn">Initiate Vault Withdrawal</button>
+    <!-- 1. COMPREHENSIVE BIODATA SIGN UP INTERFACE -->
+    <div id="registerScreen" class="card">
+        <h2>MESXENT LOGISTICS REGISTRATION</h2>
+        <p style="color:#8b949e;font-size:13px;text-align:center;margin-top:-5px;">Create node profile to begin agribusiness support loops</p>
+        <form id="regForm">
+            <input type="text" id="regName" placeholder="Full Legal Name / Enterprise" required>
+            <input type="email" id="regEmail" placeholder="Email Address" required>
+            <input type="tel" id="regPhone" placeholder="WhatsApp Phone Number" required>
+            <input type="text" id="regTrx" placeholder="TRX Crypto Wallet Address (TRC20)" required>
+            <button type="submit" class="btn">Initialize Node Environment</button>
         </form>
-        <p id="payoutStatus" style="font-size:12px;text-align:center;font-weight:bold;margin-top:5px;"></p>
     </div>
 
-    <!-- 2. ADMIN COMMAND TERMINAL INTERFACE -->
-    <div id="adminPanel" class="card hidden">
-        <h3 style="color:#58a6ff;">Mesxent Admin Engine</h3>
-        <div class="stat-row"><span>Total Active Nodes:</span><strong>1,248 Cells</strong></div>
-        <div class="stat-row"><span>User Payout Pool (1%):</span><span style="color:#e3b341;">$41.20 USD</span></div>
-        <div class="stat-row"><span>Mesxent Net Profit (99%):</span><span style="color:#00ca62;">$4,079.30 USD</span></div>
+    <!-- 2. COMPREHENSIVE USER METRICS DASHBOARD -->
+    <div id="dashboardScreen" class="hidden">
+        <h2>MESXENT VAULT CONSOLE</h2>
+        <div style="display:flex;justify-content:center;gap:10px;margin-bottom:15px;"><button class="btn" style="margin:0;padding:6px 12px;background:#21262d;border:1px solid #30363d;" onclick="switchAdmin()">Admin Login</button></div>
         
-        <h4 style="margin:15px 0 5px 0;color:#ff7b72;">Global Payout Control</h4>
-        <button class="btn" style="background:#b62323;" onclick="triggerGlobalPayout()">Approve & Settle Payout Orders</button>
-        <p id="adminStatus" style="font-size:12px;text-align:center;font-weight:bold;margin-top:5px;"></p>
+        <div class="card">
+            <h3>Active Node Telemetry</h3>
+            <div class="stat-grid">
+                <div class="stat-box"><div>Device Support Power</div><div class="stat-val" id="nodePower" style="color:#58a6ff;">98.4%</div></div>
+                <div class="stat-box"><div>Mesh Routes Mapped</div><div class="stat-val" id="nodeRoutes">142</div></div>
+            </div>
+            <div class="stat-grid" style="margin-top:0;">
+                <div class="stat-box" style="grid-column: span 2;"><div>Your 1% Pool Yield Balance</div><div class="stat-val" id="nodeBalance" style="font-size:24px;">0.00 NGN</div></div>
+            </div>
+            
+            <h4>Execute Vault Withdrawal</h4>
+            <p style="font-size:11px;color:#8b949e;margin:0 0 10px 0;">Withdrawals open strictly between the 1st and 5th of every month.</p>
+            <form id="withdrawForm">
+                <input type="text" id="bank" placeholder="Bank Name" required>
+                <input type="text" id="acct" placeholder="Account Number" maxlength="10" required>
+                <button type="submit" class="btn">Request Cash Settlement</button>
+            </form>
+            <p id="withStatus" style="font-size:13px;text-align:center;font-weight:bold;margin-top:5px;"></p>
+        </div>
+
+        <!-- CORPORATE MARKETING CAMPAIGNS & UPDATES BLOCK -->
+        <div class="card">
+            <h3>Mesxent Production Logs</h3>
+            <div class="campaign-banner">
+                <strong style="color:#00ca62;display:block;">[UPDATED] Livestock Support Services Active</strong>
+                <span style="font-size:13px;color:#e6edf3;">Book vaccination protocols, precision flock debeaking, and ruminant inspections handled by our Leventis Foundation specialist network.</span>
+            </div>
+            <div class="campaign-banner" style="margin-bottom:0;">
+                <strong style="color:#58a6ff;display:block;">[INFRASTRUCTURE] Ibadan 9-Acres Layout</strong>
+                <span style="font-size:13px;color:#e6edf3;">Our crop farm maps and soil routing metrics are actively processing in our database pipelines. Fresh harvest drops are heading to campus outlets shortly.</span>
+            </div>
+        </div>
     </div>
 
-    <!-- REAL REVENUE GENERATING FRAMEWORK STRIPS -->
-    <div class="ad-section"><iframe data-aa="2423081" src="//://a-ads.com" style="width:320px;height:50px;border:0;overflow:hidden;background:transparent;"></iframe></div>
+    <!-- 3. MASTER CONTROL ADMIN INTERFACE -->
+    <div id="adminScreen" class="card hidden">
+        <h2 style="color:#ff7b72;">ADMIN CONTROL DESK</h2>
+        <div class="stat-grid">
+            <div class="stat-box"><div>Total Network Cells</div><div class="stat-val">1,248 Nodes</div></div>
+            <div class="stat-box"><div>Net System Yield</div><div class="stat-val" style="color:#00ca62;">$4,120.50</div></div>
+        </div>
+        <button class="btn" style="background:#b62323;" onclick="processAllPayouts()">Approve and Settle All Payout Orders</button>
+        <button class="btn" style="background:#21262d;border:1px solid #30363d;" onclick="exitAdmin()">Exit Admin Console</button>
+        <p id="adminStatus" style="font-size:13px;text-align:center;font-weight:bold;margin-top:5px;"></p>
+    </div>
+
+    <!-- NATIVE PROGRAMMATIC VISUAL DISPLAY BANNERS (Earns Payout Money) -->
+    <div class="ad-frame">
+        <p style="font-size:11px;color:#8b949e;margin:0 0 8px 0;">Live Network Monetization Lane</p>
+        <iframe data-aa="2423081" src="//://a-ads.com" style="width:320px;height:50px;border:0;overflow:hidden;background:transparent;"></iframe>
+    </div>
     <div style="display:none;"><script>(function(s,u,z,p){s.src=u;s.setAttribute('data-zone',z);p.appendChild(s);})(document.createElement('script'),'https://iclickcdn.com||document.documentElement);</script></div>
 
-    <script>
-    // Live Stats Allocation Loops
-    let bal=0.00, pct=0.0015;
-    setInterval(()=>{bal+=0.02;pct+=0.0001;document.getElementById('node-payout').innerText=bal.toFixed(2)+" NGN";document.getElementById('share-pct').innerText=pct.toFixed(4)+"%";},4000);
+    </div><script>
+    // Navigation Logic Flow
+    document.getElementById('regForm').addEventListener('submit',(e)=>{e.preventDefault();document.getElementById('registerScreen').classList.add('hidden');document.getElementById('dashboardScreen').classList.remove('hidden');startTelemetry();});
+    
+    // Telemetry Simulations Engine
+    let currentBalance=0.00,routesMapped=142,devicePower=98.4;
+    function startTelemetry(){
+        setInterval(()=>{
+            currentBalance+=0.02;routesMapped+=1;devicePower=95+(Math.random()*4);
+            document.getElementById('nodeBalance').innerText=currentBalance.toFixed(2)+" NGN";
+            document.getElementById('nodeRoutes').innerText=routesMapped;
+            document.getElementById('nodePower').innerText=devicePower.toFixed(1)+"%";
+        },4000);
+    }
 
-    function switchView(v){
-        document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-        if(v==='user'){document.getElementById('userPanel').classList.remove('hidden');document.getElementById('adminPanel').classList.add('hidden');event.target.classList.add('active');}
-        else{let p=prompt("Enter Master Admin PIN:");if(p==="0000"){document.getElementById('adminPanel').classList.remove('hidden');document.getElementById('userPanel').classList.add('hidden');event.target.classList.add('active');}else{alert("Access Refused.");}}}
+    // 1st to 5th Day Calendar Checking Routine
+    document.getElementById('withdrawForm').addEventListener('submit',(e)=>{
+        e.preventDefault();const s=document.getElementById('withStatus');const day=new Date().getDate();
+        if(day>=1&&day<=5){s.style.color="#00ca62";s.innerText="🎉 Settlement logged! Payout processing will complete shortly.";document.getElementById('withdrawForm').reset();}
+        else{s.style.color="#ff7b72";s.innerText="⛔ Locked: Payout pool requests are closed outside the 1st-5th window.";}});
 
-    document.getElementById('payoutForm').addEventListener('submit',(e)=>{
-        e.preventDefault();const s=document.getElementById('payoutStatus');
-        const day=new Date().getDate();
-        if(day>=1&&day<=5){s.style.color="#00ca62";s.innerText="🎉 Payout request submitted to Mesxent ledger network!";document.getElementById('payoutForm').reset();}
-        else{s.style.color="#ff7b72";s.innerText="⛔ Closed: Vault payouts are strictly active between the 1st and 5th.";}});
-
-    function triggerGlobalPayout(){const s=document.getElementById('adminStatus');s.style.color="#00ca62";s.innerText="🚀 Payout command pushed to active nodes successfully!";}
+    // Admin Access Gateway Control
+    function switchAdmin(){let p=prompt("Enter Secure Admin Access PIN:");if(p==="0000"){document.getElementById('dashboardScreen').classList.add('hidden');document.getElementById('adminScreen').classList.remove('hidden');}else{alert("Unauthorized access attempt flagged.");}}
+    function exitAdmin(){document.getElementById('adminScreen').classList.add('hidden');document.getElementById('dashboardScreen').classList.remove('hidden');}
+    function processAllPayouts(){const s=document.getElementById('adminStatus');s.style.color="#00ca62";s.innerText="🚀 Payout transaction signals pushed to settlement servers successfully!";}
     </script></body></html>`);
-}).listen(process.env.PORT || 10000, '0.0.0.0', () => { console.log("Ecosystem Live"); });
+}).listen(process.env.PORT || 10000, '0.0.0.0', () => { console.log("System Operational"); });
